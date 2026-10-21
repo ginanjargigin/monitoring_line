@@ -18,23 +18,34 @@ main{padding:22px 20px;max-width:900px;margin:0 auto}.view{display:none}.view.ac
 .date-navigation{grid-column:1/-1;display:grid;grid-template-columns:42px minmax(0,1fr) 42px;align-items:center;gap:8px;background:#f3f8ff;border:1px solid #dbe8f8;border-radius:13px;padding:6px;margin-bottom:12px}.date-arrow{height:40px;border:0;border-radius:10px;background:#fff;color:#1769d2;font-size:28px;line-height:1;box-shadow:0 1px 4px rgba(15,65,120,.08);cursor:pointer}.date-center{display:flex;align-items:center;justify-content:center;gap:8px;color:#123c78;font-size:13px}.date-center input{width:auto;max-width:100%;height:38px;border:0;background:transparent;box-shadow:none;padding:0;font-size:14px;font-weight:750;text-align:center}.filled-dates-card{grid-column:1/-1;background:#fff;border:1px solid #dce8f8;border-radius:14px;padding:13px;margin-bottom:12px}.filled-dates-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}.filled-dates-heading strong{font-size:12px;color:#29476e}.filled-dates-heading button{border:0;background:transparent;color:#1769d2;font-size:11px;font-weight:800;cursor:pointer}.filled-dates-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}.filled-date{height:39px;border:1px solid #e1eaf6;border-radius:10px;background:#f9fbff;color:#233b5b;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:5px;cursor:pointer}.filled-date.selected{background:#e6f2ff;border:1.5px solid #1769d2;color:#0757b7}.dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex:none}.dot-complete{background:#16a36a}.dot-partial{background:#f59e0b}.dot-empty{background:#a0aec0}.date-legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:11px;color:#667a95;font-size:10px}.date-legend span{display:flex;align-items:center;gap:5px}.no-filled-dates{grid-column:1/-1;font-size:11px;color:#71829b;margin:8px 0}.autosave-status{margin:5px 0 0;padding:9px 11px;border-radius:10px;background:#eaf5ff;color:#1769d2;font-size:11px;font-weight:750}.control-panel .date-navigation,.control-panel .filled-dates-card{margin-bottom:4px}.control-panel{display:block}.control-panel>.field-label{margin-top:9px}.control-panel>.field-label:first-of-type{margin-top:0}.control-panel>.field-label,.control-panel>select{display:block}.control-panel>select{margin-bottom:8px}
 @media(min-width:700px){.filled-dates-grid{grid-template-columns:repeat(8,minmax(0,1fr))}.date-navigation{max-width:520px}.filled-dates-card{max-width:680px}}
 
-/* Form Model dan CT: sejajar di HP */
-.line-form {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+
+
+/* Model dan CT sejajar pada tampilan HP */
+@media (max-width: 430px) {
+  #view-settings .model-editor form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  #view-settings .model-editor form label {
+    min-width: 0;
+  }
+
+  /* Nama line memenuhi baris pertama */
+  #view-settings .model-editor form label:has(#modelLineName) {
+    grid-column: 1 / -1;
+  }
+
+  #view-settings .model-editor form input {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* CT otomatis dan tombol tetap di bawah */
+  #view-settings .model-editor form .calculation-row,
+  #view-settings .model-editor form button {
+    grid-column: 1 / -1;
+  }
 }
 
-.line-form label {
-  min-width: 0;
-}
-
-.line-form input {
-  width: 100%;
-  min-width: 0;
-}
-
-/* Baris perhitungan dan tombol tetap selebar form */
-.line-form .calculation-row,
-.line-form button {
-  grid-column: 1 / -1;
-}
