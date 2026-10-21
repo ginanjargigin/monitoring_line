@@ -15,7 +15,6 @@
       <div class="brand-copy"><strong>Line Monitor</strong><span>Monitoring Produksi</span></div>
       <div class="topbar-spacer"></div>
       <span class="topbar-date" id="topbarDate"></span>
-      <button id="exportBtn" class="icon-btn" title="Ekspor CSV" aria-label="Ekspor CSV">⇩</button>
     </header>
 
     <nav class="bottom-nav" aria-label="Navigasi utama">
@@ -35,11 +34,11 @@
         <div class="control-panel">
           <div class="date-navigation">
             <button id="prevDateBtn" class="date-arrow" type="button" aria-label="Tanggal sebelumnya">‹</button>
-            <label class="date-center" for="inputDate"><span>▦</span><input id="inputDate" type="date" aria-label="Pilih tanggal input"></label>
+            <label class="date-center" for="inputDate"><span class="date-calendar-icon" aria-hidden="true">📅</span><input id="inputDate" type="date" aria-label="Pilih tanggal input"></label>
             <button id="nextDateBtn" class="date-arrow" type="button" aria-label="Tanggal berikutnya">›</button>
           </div>
           <div class="filled-dates-card">
-            <div class="filled-dates-heading"><strong>▦ &nbsp; Tanggal Terisi Bulan Ini</strong><button id="showAllDatesBtn" type="button">Lihat Semua</button></div>
+            <div class="filled-dates-heading"><strong><span class="calendar-heading-icon" aria-hidden="true">📅</span> Tanggal Terisi Bulan Ini</strong><button id="showAllDatesBtn" type="button">Lihat Semua</button></div>
             <div id="filledDates" class="filled-dates-grid"></div>
             <div class="date-legend"><span><i class="dot dot-complete"></i> Lengkap</span><span><i class="dot dot-partial"></i> Sebagian</span><span><i class="dot dot-empty"></i> Belum ada data</span></div>
           </div>
@@ -53,8 +52,8 @@
           <section class="input-card production-card">
             <div class="card-heading"><span class="card-icon">▦</span><div><h2>1. Produksi</h2><p>Catat waktu kerja dan hasil produksi.</p></div></div>
             <div class="form-grid">
-              <label>Waktu input (menit)<input id="workMinutes" type="number" min="0" step="1" inputmode="numeric" placeholder="450"></label>
-              <label>Aktual produksi (PCS)<input id="actualPcs" type="number" min="0" step="1" inputmode="numeric" placeholder="0"></label>
+              <label>Waktu input (menit)<input id="workMinutes" type="number" min="0" step="1" inputmode="numeric" placeholder="Masukkan menit"></label>
+              <label>Aktual produksi (PCS)<input id="actualPcs" type="number" min="0" step="1" inputmode="numeric" placeholder="Masukkan PCS"></label>
             </div>
             <div class="production-results">
               <div class="standard-result"><span>Standard PCS</span><strong id="standardPreview">0 PCS</strong></div>
@@ -63,12 +62,12 @@
           </section>
           <section class="input-card downtime-card">
             <div class="card-heading"><span class="card-icon">◷</span><div><h2>2. Downtime</h2><p>Catat waktu berhenti line.</p></div></div>
-            <label>Downtime (menit)<input id="downtimeMinutes" type="number" min="0" step="1" inputmode="numeric" placeholder="0"></label>
+            <label>Downtime (menit)<input id="downtimeMinutes" type="number" min="0" step="1" inputmode="numeric" placeholder="Masukkan menit"></label>
             <div class="metric-result"><span>Persentase Downtime</span><strong id="downtimePreview">0,0%</strong><small>dari 450 menit</small></div>
           </section>
           <section class="input-card repair-card">
             <div class="card-heading"><span class="card-icon">🔧</span><div><h2>3. Repair</h2><p>Catat jumlah produk repair.</p></div></div>
-            <label>PCS repair<input id="repairPcs" type="number" min="0" step="1" inputmode="numeric" placeholder="0"></label>
+            <label>PCS repair<input id="repairPcs" type="number" min="0" step="1" inputmode="numeric" placeholder="Masukkan PCS"></label>
             <div class="metric-result"><span>Repair Ratio</span><strong id="repairPreview">0,0%</strong><small>dari aktual produksi</small></div>
           </section>
           <button class="primary-btn save-btn" type="submit">✓ Simpan Sekarang</button>
