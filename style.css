@@ -10,3 +10,77 @@
 @media(min-width:1400px){.app-shell{padding-left:244px}.bottom-nav{width:244px}.app-shell>main{padding:30px 34px 44px}#view-input.active{grid-template-columns:minmax(0,1fr) 320px;gap:0 20px}.control-panel{padding:18px}.aside-card{padding:18px}#dailyForm{gap:15px}#dailyForm .input-card{padding:19px}.side-kpi strong{font-size:18px}}
 @media(max-width:430px){main{padding:16px 12px 90px}.topbar{padding:0 13px}.page-heading h1{font-size:24px}.page-subtitle{font-size:11px}.live-dot{font-size:9px;padding:6px 8px}.control-panel,.settings-card{padding:13px}.input-card{padding:13px}.form-grid{grid-template-columns:1fr}.production-results{grid-template-columns:1fr}.kpi-grid{gap:6px}.kpi{padding:12px 9px}.kpi span{font-size:10px}.kpi small{font-size:9px}.kpi strong{font-size:21px}.tabs .tab{font-size:11px}.line-form{grid-template-columns:1fr}.filled-dates-grid{grid-template-columns:repeat(5,minmax(0,1fr))}.page-heading{align-items:flex-start}.page-heading .live-dot{margin-top:8px}.date-center{gap:5px}.date-center input{font-size:12px}.date-legend{gap:8px}.metric-result strong{font-size:27px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+/* Input UX: field kosong, fokus jelas, dan warna mengikuti kartu */
+#dailyForm input::placeholder {
+  color: #9aa9bc;
+  opacity: 1;
+  font-weight: 400;
+}
+
+#dailyForm input {
+  caret-color: var(--blue);
+  transition: border-color .16s ease, box-shadow .16s ease, background-color .16s ease;
+}
+
+#dailyForm .production-card input:focus {
+  border-color: #159765;
+  background: #fbfffd;
+  box-shadow: 0 0 0 3px rgba(21, 151, 101, .16);
+  caret-color: #087b55;
+}
+
+#dailyForm .production-card label:focus-within {
+  color: #087b55;
+}
+
+#dailyForm .downtime-card input:focus {
+  border-color: #e65366;
+  background: #fffafb;
+  box-shadow: 0 0 0 3px rgba(230, 83, 102, .16);
+  caret-color: #c62845;
+}
+
+#dailyForm .downtime-card label:focus-within {
+  color: #c62845;
+}
+
+#dailyForm .repair-card input:focus {
+  border-color: #f59e0b;
+  background: #fffdf8;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, .2);
+  caret-color: #b45309;
+}
+
+#dailyForm .repair-card label:focus-within {
+  color: #b45309;
+}
+
+#dailyForm input:focus-visible {
+  outline: none;
+}
+
+.date-calendar-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+  flex: 0 0 25px;
+  font-size: 19px;
+  line-height: 1;
+}
+
+.calendar-heading-icon {
+  display: inline-block;
+  margin-right: 4px;
+  font-size: 15px;
+  vertical-align: -1px;
+}
+
+@media (max-width: 430px) {
+  #dailyForm input {
+    min-height: 46px;
+    font-size: 16px;
+  }
+}
