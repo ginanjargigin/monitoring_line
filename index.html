@@ -27,6 +27,8 @@
           <input id="inputDate" type="date">
           <label class="field-label" for="inputLine">Pilih line</label>
           <select id="inputLine"></select>
+          <label class="field-label" for="inputModel">Pilih model</label>
+          <select id="inputModel"></select>
           <p id="dateHint" class="hint">Data tersimpan berdasarkan tanggal dan line.</p>
         </div>
 
@@ -36,10 +38,10 @@
             <div class="form-grid">
               <label>Waktu input (menit)<input id="workMinutes" type="number" min="0" step="1" inputmode="numeric" placeholder="450"></label>
               <label>Aktual produksi (PCS)<input id="actualPcs" type="number" min="0" step="1" inputmode="numeric" placeholder="0"></label>
-              <label>Target manual (PCS)<input id="targetPcs" type="number" min="0" step="1" inputmode="numeric" placeholder="Otomatis dari CT"></label>
+
             </div>
             <div class="calculation-row"><span>Standard PCS</span><strong id="standardPreview">0 PCS</strong></div>
-            <div class="calculation-row"><span>Efisiensi</span><strong id="efficiencyPreview">0.0%</strong></div>
+            <div class="efficiency-result"><span>Efisiensi Produksi</span><strong id="efficiencyPreview">0.0%</strong><small id="efficiencyHelp">Aktual dibanding standard PCS</small></div>
           </section>
 
           <section class="input-card downtime-card">
@@ -63,6 +65,7 @@
         <div class="control-panel">
           <label class="field-label" for="dashboardDate">Tanggal</label><input id="dashboardDate" type="date">
           <label class="field-label" for="dashboardLine">Line</label><select id="dashboardLine"></select>
+          <label class="field-label" for="dashboardModel">Model</label><select id="dashboardModel"></select>
         </div>
         <div class="kpi-grid">
           <article class="kpi kpi-blue"><span>Efisiensi</span><strong id="kpiEfficiency">0.0%</strong><small id="kpiProduction">Aktual 0 / Standar 0</small></article>
@@ -88,14 +91,25 @@
           <form id="lineForm" class="line-form">
             <input id="lineId" type="hidden">
             <label>Nama line<input id="lineName" type="text" maxlength="40" placeholder="Contoh: D03B" required></label>
-            <label>Model<input id="lineModel" type="text" maxlength="60" placeholder="Contoh: Manual / All"></label>
-            <label>CT (menit/PCS)<input id="lineCtMin" type="number" min="0.001" step="0.001" inputmode="decimal" placeholder="Contoh: 2.55" required></label>
-            <label>Waktu standar downtime (menit)<input id="lineStandardTime" type="number" min="1" step="1" inputmode="numeric" value="450" required></label>
-            <div class="calculation-row"><span>CT otomatis (detik/PCS)</span><strong id="ctSecondsPreview">—</strong></div>
+            <label>Waktu standar downtime<input type="text" value="450 menit (tetap)" readonly aria-readonly="true"></label>
+            <p class="hint settings-note">Waktu standar ditetapkan 450 menit dan tidak dapat diubah.</p>
             <button id="saveLineBtn" class="primary-btn" type="submit">＋ Tambah Line</button>
             <button id="cancelEditBtn" class="secondary-btn hidden" type="button">Batal Edit</button>
           </form>
           <div id="lineList" class="line-list"></div>
+          <div class="model-editor">
+            <div class="settings-title"><div><h2>Model dan Cycle Time</h2><p>Setiap line dapat memiliki beberapa model dengan CT berbeda.</p></div></div>
+            <form id="modelForm" class="line-form">
+              <input id="modelId" type="hidden">
+              <label>Line<input id="modelLineName" type="text" readonly placeholder="Pilih line di daftar"></label>
+              <label>Nama model<input id="modelName" type="text" maxlength="60" placeholder="Contoh: Manual / All" required></label>
+              <label>CT (menit/PCS)<input id="modelCtMin" type="number" min="0.001" step="0.001" inputmode="decimal" placeholder="Contoh: 2.55" required></label>
+              <div class="calculation-row"><span>CT otomatis (detik/PCS)</span><strong id="ctSecondsPreview">—</strong></div>
+              <button id="saveModelBtn" class="primary-btn" type="submit">＋ Tambah Model ke Line</button>
+              <button id="cancelModelBtn" class="secondary-btn hidden" type="button">Batal Edit Model</button>
+            </form>
+            <div id="modelList" class="line-list"></div>
+          </div>
         </section>
         <section class="settings-card">
           <div class="settings-title"><div><h2>Data & Penyimpanan</h2><p>Data tersimpan di browser/perangkat ini.</p></div></div>
