@@ -13,129 +13,123 @@
     <header class="topbar">
       <div class="brand-mark" aria-hidden="true">LM</div>
       <div class="brand-copy"><strong>Line Monitor</strong><span>Monitoring Produksi</span></div>
-      <button id="exportBtn" class="icon-btn" title="Ekspor data" aria-label="Ekspor data">⇩</button>
+      <div class="topbar-spacer"></div>
+      <span class="topbar-date" id="topbarDate"></span>
+      <button id="exportBtn" class="icon-btn" title="Ekspor CSV" aria-label="Ekspor CSV">⇩</button>
     </header>
+
+    <nav class="bottom-nav" aria-label="Navigasi utama">
+      <div class="sidebar-brand"><div class="brand-mark">LM</div><div><strong>Line Monitor</strong><span>Monitoring Produksi</span></div></div>
+      <button class="nav-item active" data-view="input" type="button"><span>✎</span><small>Input</small></button>
+      <button class="nav-item" data-view="dashboard" type="button"><span>▥</span><small>Dashboard</small></button>
+      <button class="nav-item" data-view="settings" type="button"><span>⚙</span><small>Pengaturan</small></button>
+      <div class="sidebar-foot"><span class="sidebar-foot-icon">▦</span><p>Monitoring produksi lebih mudah, efisien, dan akurat.</p><small>Line Monitor · v1.1</small></div>
+    </nav>
 
     <main>
       <section id="view-input" class="view active">
         <div class="page-heading">
-          <div><p class="eyebrow">PENCATATAN HARIAN</p><h1>Input Data</h1></div>
+          <div><p class="eyebrow">PENCATATAN HARIAN</p><h1>Input Data</h1><p class="page-subtitle">Catat data produksi, downtime, dan repair sesuai tanggal dan model.</p></div>
           <span class="live-dot">Penyimpanan lokal</span>
         </div>
         <div class="control-panel">
           <div class="date-navigation">
             <button id="prevDateBtn" class="date-arrow" type="button" aria-label="Tanggal sebelumnya">‹</button>
-            <label class="date-center" for="inputDate"><span>📅</span><input id="inputDate" type="date" aria-label="Pilih tanggal input"></label>
+            <label class="date-center" for="inputDate"><span>▦</span><input id="inputDate" type="date" aria-label="Pilih tanggal input"></label>
             <button id="nextDateBtn" class="date-arrow" type="button" aria-label="Tanggal berikutnya">›</button>
           </div>
           <div class="filled-dates-card">
-            <div class="filled-dates-heading"><strong>Tanggal Terisi Bulan Ini</strong><button id="showAllDatesBtn" type="button">Lihat Semua</button></div>
+            <div class="filled-dates-heading"><strong>▦ &nbsp; Tanggal Terisi Bulan Ini</strong><button id="showAllDatesBtn" type="button">Lihat Semua</button></div>
             <div id="filledDates" class="filled-dates-grid"></div>
             <div class="date-legend"><span><i class="dot dot-complete"></i> Lengkap</span><span><i class="dot dot-partial"></i> Sebagian</span><span><i class="dot dot-empty"></i> Belum ada data</span></div>
           </div>
-          <label class="field-label" for="inputLine">Pilih line</label>
-          <select id="inputLine"></select>
-          <label class="field-label" for="inputModel">Pilih model</label>
-          <select id="inputModel"></select>
+          <div class="selector-field"><label class="field-label" for="inputLine">Pilih Line</label><select id="inputLine"></select></div>
+          <div class="selector-field"><label class="field-label" for="inputModel">Pilih Model</label><select id="inputModel"></select></div>
           <p id="dateHint" class="hint">Data tersimpan otomatis saat input berubah.</p>
           <p id="autosaveStatus" class="autosave-status">● Penyimpanan otomatis aktif</p>
         </div>
 
         <form id="dailyForm">
           <section class="input-card production-card">
-            <div class="card-heading"><span class="card-icon">▦</span><div><h2>1. Produksi</h2><p>Catat waktu kerja dan hasil produksi</p></div></div>
+            <div class="card-heading"><span class="card-icon">▦</span><div><h2>1. Produksi</h2><p>Catat waktu kerja dan hasil produksi.</p></div></div>
             <div class="form-grid">
               <label>Waktu input (menit)<input id="workMinutes" type="number" min="0" step="1" inputmode="numeric" placeholder="450"></label>
               <label>Aktual produksi (PCS)<input id="actualPcs" type="number" min="0" step="1" inputmode="numeric" placeholder="0"></label>
-
             </div>
-            <div class="calculation-row"><span>Standard PCS</span><strong id="standardPreview">0 PCS</strong></div>
-            <div class="efficiency-result"><span>Efisiensi Produksi</span><strong id="efficiencyPreview">0.0%</strong><small id="efficiencyHelp">Aktual dibanding standard PCS</small></div>
+            <div class="production-results">
+              <div class="standard-result"><span>Standard PCS</span><strong id="standardPreview">0 PCS</strong></div>
+              <div class="efficiency-result"><span>Efisiensi Produksi</span><strong id="efficiencyPreview">0,0%</strong><small id="efficiencyHelp">Aktual dibanding standard PCS</small></div>
+            </div>
           </section>
-
           <section class="input-card downtime-card">
-            <div class="card-heading"><span class="card-icon">◷</span><div><h2>2. Downtime</h2><p>Catat waktu berhenti line</p></div></div>
+            <div class="card-heading"><span class="card-icon">◷</span><div><h2>2. Downtime</h2><p>Catat waktu berhenti line.</p></div></div>
             <label>Downtime (menit)<input id="downtimeMinutes" type="number" min="0" step="1" inputmode="numeric" placeholder="0"></label>
-            <div class="calculation-row"><span>Persentase downtime</span><strong id="downtimePreview">0.0%</strong></div>
+            <div class="metric-result"><span>Persentase Downtime</span><strong id="downtimePreview">0,0%</strong><small>dari 450 menit</small></div>
           </section>
-
           <section class="input-card repair-card">
-            <div class="card-heading"><span class="card-icon">↻</span><div><h2>3. Repair</h2><p>Catat jumlah produk repair</p></div></div>
+            <div class="card-heading"><span class="card-icon">🔧</span><div><h2>3. Repair</h2><p>Catat jumlah produk repair.</p></div></div>
             <label>PCS repair<input id="repairPcs" type="number" min="0" step="1" inputmode="numeric" placeholder="0"></label>
-            <div class="calculation-row"><span>Repair ratio</span><strong id="repairPreview">0.0%</strong></div>
+            <div class="metric-result"><span>Repair Ratio</span><strong id="repairPreview">0,0%</strong><small>dari aktual produksi</small></div>
           </section>
           <button class="primary-btn save-btn" type="submit">✓ Simpan Sekarang</button>
-          <button id="clearFormBtn" class="secondary-btn full-btn" type="button">Kosongkan Form</button>
+          <button id="clearFormBtn" class="secondary-btn clear-btn" type="button">Kosongkan Form</button>
         </form>
+
+        <aside class="desktop-aside" aria-label="Ringkasan produksi">
+          <div class="aside-status"><span class="status-check">✓</span><strong id="sideSavedStatus">Data tersimpan otomatis</strong><small id="sideSavedTime">Siap digunakan</small></div>
+          <section class="aside-card">
+            <div class="aside-heading"><span class="aside-icon">▥</span><div><h2>Ringkasan Hari Ini</h2><p id="sideDateLabel">Tanggal terpilih</p></div></div>
+            <div class="side-kpis">
+              <div class="side-kpi blue"><span>Efisiensi</span><strong id="sideEfficiency">0,0%</strong></div>
+              <div class="side-kpi red"><span>Downtime</span><strong id="sideDowntime">0,0%</strong></div>
+              <div class="side-kpi orange"><span>Repair Ratio</span><strong id="sideRepair">0,0%</strong></div>
+            </div>
+            <div class="side-details"><div><span>Standard PCS</span><strong id="sideStandardPcs">0</strong></div><div><span>Aktual PCS</span><strong id="sideActualPcs">0</strong></div><div><span>Downtime</span><strong id="sideDowntimeMinutes">0 menit</strong></div><div><span>Repair</span><strong id="sideRepairPcs">0 PCS</strong></div></div>
+          </section>
+          <section class="aside-card">
+            <div class="aside-heading"><span class="aside-icon">⬡</span><div><h2 id="sideModelHeading">Model Terpilih</h2><p id="sideLineModel">Pilih line dan model</p></div></div>
+            <div class="ct-summary"><div><span>CT (menit/PCS)</span><strong id="sideCtMin">—</strong></div><div><span>CT (detik/PCS)</span><strong id="sideCtSeconds">—</strong></div></div>
+            <div id="sideModelList" class="side-model-list"></div>
+            <button id="goSettingsBtn" class="text-link" type="button">Kelola line & model →</button>
+          </section>
+          <section class="aside-card side-dates-card">
+            <div class="aside-heading"><span class="aside-icon">▦</span><div><h2 id="sideMonthHeading">Tanggal Terisi</h2><p id="sideMonthCount">Bulan terpilih</p></div></div>
+            <div id="sideFilledDates" class="filled-dates-grid side-filled-dates"></div>
+            <div class="date-legend"><span><i class="dot dot-complete"></i> Lengkap</span><span><i class="dot dot-partial"></i> Sebagian</span></div>
+          </section>
+        </aside>
       </section>
 
       <section id="view-dashboard" class="view">
-        <div class="page-heading"><div><p class="eyebrow">RINGKASAN PRODUKSI</p><h1>Dashboard</h1></div></div>
-        <div class="control-panel">
-          <label class="field-label" for="dashboardDate">Tanggal</label><input id="dashboardDate" type="date">
-          <label class="field-label" for="dashboardLine">Line</label><select id="dashboardLine"></select>
-          <label class="field-label" for="dashboardModel">Model</label><select id="dashboardModel"></select>
+        <div class="page-heading"><div><p class="eyebrow">RINGKASAN PRODUKSI</p><h1>Dashboard</h1><p class="page-subtitle">Pantau tren efisiensi, downtime, dan repair setiap model.</p></div></div>
+        <div class="control-panel dashboard-filters">
+          <div class="selector-field"><label class="field-label" for="dashboardDate">Tanggal</label><input id="dashboardDate" type="date"></div>
+          <div class="selector-field"><label class="field-label" for="dashboardLine">Line</label><select id="dashboardLine"></select></div>
+          <div class="selector-field"><label class="field-label" for="dashboardModel">Model</label><select id="dashboardModel"></select></div>
         </div>
         <div class="kpi-grid">
-          <article class="kpi kpi-blue"><span>Efisiensi</span><strong id="kpiEfficiency">0.0%</strong><small id="kpiProduction">Aktual 0 / Standar 0</small></article>
-          <article class="kpi kpi-red"><span>Downtime</span><strong id="kpiDowntime">0.0%</strong><small id="kpiDowntimeDetail">0 menit</small></article>
-          <article class="kpi kpi-orange"><span>Repair Ratio</span><strong id="kpiRepair">0.0%</strong><small id="kpiRepairDetail">0 PCS repair</small></article>
+          <article class="kpi kpi-blue"><span>Efisiensi</span><strong id="kpiEfficiency">0,0%</strong><small id="kpiProduction">Aktual 0 / Standar 0</small></article>
+          <article class="kpi kpi-red"><span>Downtime</span><strong id="kpiDowntime">0,0%</strong><small id="kpiDowntimeDetail">0 menit</small></article>
+          <article class="kpi kpi-orange"><span>Repair Ratio</span><strong id="kpiRepair">0,0%</strong><small id="kpiRepairDetail">0 PCS repair</small></article>
         </div>
-        <div class="tabs" role="tablist" aria-label="Tabel dashboard">
-          <button class="tab active" data-table="efficiency" type="button">Efisiensi</button>
-          <button class="tab" data-table="downtime" type="button">Downtime</button>
-          <button class="tab" data-table="repair" type="button">Repair Ratio</button>
-        </div>
-        <div class="table-card">
-          <div class="table-title"><h2 id="tableHeading">Tabel Efisiensi</h2><span id="tableCount">0 data</span></div>
-          <div class="table-wrap"><table><thead id="tableHead"></thead><tbody id="tableBody"></tbody></table></div>
-        </div>
-        <p class="hint">Tabel menampilkan histori untuk line terpilih. Ubah tanggal untuk melihat ringkasan hari tertentu.</p>
+        <div class="tabs" role="tablist" aria-label="Tabel dashboard"><button class="tab active" data-table="efficiency" type="button">Efisiensi</button><button class="tab" data-table="downtime" type="button">Downtime</button><button class="tab" data-table="repair" type="button">Repair Ratio</button></div>
+        <div class="table-card"><div class="table-title"><h2 id="tableHeading">Tabel Efisiensi</h2><span id="tableCount">0 data</span></div><div class="table-wrap"><table><thead id="tableHead"></thead><tbody id="tableBody"></tbody></table></div></div>
+        <p class="hint">Tabel menampilkan histori model terpilih. Ubah tanggal untuk melihat ringkasan hari tertentu.</p>
       </section>
 
       <section id="view-settings" class="view">
-        <div class="page-heading"><div><p class="eyebrow">KONFIGURASI APLIKASI</p><h1>Pengaturan</h1></div></div>
-        <section class="settings-card">
-          <div class="settings-title"><div><h2>Master Line</h2><p>Tambah, ubah, atau hapus line produksi.</p></div></div>
-          <form id="lineForm" class="line-form">
-            <input id="lineId" type="hidden">
-            <label>Nama line<input id="lineName" type="text" maxlength="40" placeholder="Contoh: D03B" required></label>
-            <label>Waktu standar downtime<input type="text" value="450 menit (tetap)" readonly aria-readonly="true"></label>
-            <p class="hint settings-note">Waktu standar ditetapkan 450 menit dan tidak dapat diubah.</p>
-            <button id="saveLineBtn" class="primary-btn" type="submit">＋ Tambah Line</button>
-            <button id="cancelEditBtn" class="secondary-btn hidden" type="button">Batal Edit</button>
-          </form>
+        <div class="page-heading"><div><p class="eyebrow">KONFIGURASI APLIKASI</p><h1>Pengaturan</h1><p class="page-subtitle">Kelola line, model, dan cycle time produksi.</p></div></div>
+        <section class="settings-card"><div class="settings-title"><div><h2>Master Line</h2><p>Tambah, ubah, atau hapus line produksi.</p></div></div>
+          <form id="lineForm" class="line-form"><input id="lineId" type="hidden"><label>Nama line<input id="lineName" type="text" maxlength="40" placeholder="Contoh: D03B" required></label><label>Waktu standar downtime<input type="text" value="450 menit (tetap)" readonly aria-readonly="true"></label><p class="hint settings-note">Waktu standar ditetapkan 450 menit dan tidak dapat diubah.</p><button id="saveLineBtn" class="primary-btn" type="submit">＋ Tambah Line</button><button id="cancelEditBtn" class="secondary-btn hidden" type="button">Batal Edit</button></form>
           <div id="lineList" class="line-list"></div>
-          <div class="model-editor">
-            <div class="settings-title"><div><h2>Model dan Cycle Time</h2><p>Setiap line dapat memiliki beberapa model dengan CT berbeda.</p></div></div>
-            <form id="modelForm" class="line-form">
-              <input id="modelId" type="hidden">
-              <label>Line<input id="modelLineName" type="text" readonly placeholder="Pilih line di daftar"></label>
-              <label>Nama model<input id="modelName" type="text" maxlength="60" placeholder="Contoh: Manual / All" required></label>
-              <label>CT (menit/PCS)<input id="modelCtMin" type="number" min="0.001" step="0.001" inputmode="decimal" placeholder="Contoh: 2.55" required></label>
-              <div class="calculation-row"><span>CT otomatis (detik/PCS)</span><strong id="ctSecondsPreview">—</strong></div>
-              <button id="saveModelBtn" class="primary-btn" type="submit">＋ Tambah Model ke Line</button>
-              <button id="cancelModelBtn" class="secondary-btn hidden" type="button">Batal Edit Model</button>
-            </form>
+          <div class="model-editor"><div class="settings-title"><div><h2>Model dan Cycle Time</h2><p>Setiap line dapat memiliki beberapa model dengan CT berbeda.</p></div></div>
+            <form id="modelForm" class="line-form"><input id="modelId" type="hidden"><label>Line<input id="modelLineName" type="text" readonly placeholder="Pilih line di daftar"></label><label>Nama model<input id="modelName" type="text" maxlength="60" placeholder="Contoh: Manual / All" required></label><label>CT (menit/PCS)<input id="modelCtMin" type="number" min="0.001" step="0.001" inputmode="decimal" placeholder="Contoh: 2.55" required></label><div class="calculation-row"><span>CT otomatis (detik/PCS)</span><strong id="ctSecondsPreview">—</strong></div><button id="saveModelBtn" class="primary-btn" type="submit">＋ Tambah Model ke Line</button><button id="cancelModelBtn" class="secondary-btn hidden" type="button">Batal Edit Model</button></form>
             <div id="modelList" class="line-list"></div>
           </div>
         </section>
-        <section class="settings-card">
-          <div class="settings-title"><div><h2>Data & Penyimpanan</h2><p>Data tersimpan di browser/perangkat ini.</p></div></div>
-          <button id="downloadBackupBtn" class="secondary-btn full-btn" type="button">Ekspor cadangan JSON</button>
-          <label class="secondary-btn full-btn import-label" for="importFile">Impor cadangan JSON</label>
-          <input id="importFile" type="file" accept=".json,application/json" class="hidden">
-          <p class="warning-note">Penyimpanan lokal tidak otomatis tersinkron antarperangkat. Ekspor cadangan secara berkala agar data tidak hilang saat data browser dibersihkan.</p>
-          <button id="clearAllBtn" class="danger-btn full-btn" type="button">Hapus Semua Data Lokal</button>
-        </section>
+        <section class="settings-card"><div class="settings-title"><div><h2>Data & Penyimpanan</h2><p>Data tersimpan di browser/perangkat ini.</p></div></div><button id="downloadBackupBtn" class="secondary-btn full-btn" type="button">Ekspor cadangan JSON</button><label class="secondary-btn full-btn import-label" for="importFile">Impor cadangan JSON</label><input id="importFile" type="file" accept=".json,application/json" class="hidden"><p class="warning-note">Penyimpanan lokal tidak otomatis tersinkron antarperangkat. Ekspor cadangan secara berkala agar data tidak hilang saat data browser dibersihkan.</p><button id="clearAllBtn" class="danger-btn full-btn" type="button">Hapus Semua Data Lokal</button></section>
       </section>
     </main>
-
-    <nav class="bottom-nav" aria-label="Navigasi utama">
-      <button class="nav-item active" data-view="input" type="button"><span>＋</span><small>Input</small></button>
-      <button class="nav-item" data-view="dashboard" type="button"><span>▥</span><small>Dashboard</small></button>
-      <button class="nav-item" data-view="settings" type="button"><span>⚙</span><small>Pengaturan</small></button>
-    </nav>
   </div>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="app.js"></script>
