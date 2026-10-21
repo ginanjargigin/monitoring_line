@@ -23,13 +23,22 @@
           <span class="live-dot">Penyimpanan lokal</span>
         </div>
         <div class="control-panel">
-          <label class="field-label" for="inputDate">Tanggal input</label>
-          <input id="inputDate" type="date">
+          <div class="date-navigation">
+            <button id="prevDateBtn" class="date-arrow" type="button" aria-label="Tanggal sebelumnya">‹</button>
+            <label class="date-center" for="inputDate"><span>📅</span><input id="inputDate" type="date" aria-label="Pilih tanggal input"></label>
+            <button id="nextDateBtn" class="date-arrow" type="button" aria-label="Tanggal berikutnya">›</button>
+          </div>
+          <div class="filled-dates-card">
+            <div class="filled-dates-heading"><strong>Tanggal Terisi Bulan Ini</strong><button id="showAllDatesBtn" type="button">Lihat Semua</button></div>
+            <div id="filledDates" class="filled-dates-grid"></div>
+            <div class="date-legend"><span><i class="dot dot-complete"></i> Lengkap</span><span><i class="dot dot-partial"></i> Sebagian</span><span><i class="dot dot-empty"></i> Belum ada data</span></div>
+          </div>
           <label class="field-label" for="inputLine">Pilih line</label>
           <select id="inputLine"></select>
           <label class="field-label" for="inputModel">Pilih model</label>
           <select id="inputModel"></select>
-          <p id="dateHint" class="hint">Data tersimpan berdasarkan tanggal dan line.</p>
+          <p id="dateHint" class="hint">Data tersimpan otomatis saat input berubah.</p>
+          <p id="autosaveStatus" class="autosave-status">● Penyimpanan otomatis aktif</p>
         </div>
 
         <form id="dailyForm">
@@ -55,7 +64,7 @@
             <label>PCS repair<input id="repairPcs" type="number" min="0" step="1" inputmode="numeric" placeholder="0"></label>
             <div class="calculation-row"><span>Repair ratio</span><strong id="repairPreview">0.0%</strong></div>
           </section>
-          <button class="primary-btn save-btn" type="submit">✓ Simpan Data</button>
+          <button class="primary-btn save-btn" type="submit">✓ Simpan Sekarang</button>
           <button id="clearFormBtn" class="secondary-btn full-btn" type="button">Kosongkan Form</button>
         </form>
       </section>
